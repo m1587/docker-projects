@@ -1,0 +1,43 @@
+namespace: voting-app
+
+replicaCount: 1
+
+image:
+  vote:
+    repository: dockersamples/examplevotingapp_vote
+    tag: latest
+  result:
+    repository: dockersamples/examplevotingapp_result
+    tag: latest
+  worker:
+    repository: dockersamples/examplevotingapp_worker
+    tag: latest
+  redis:
+    repository: redis
+    tag: alpine
+  postgres:
+    repository: postgres
+    tag: 15-alpine
+
+postgres:
+  pvc:
+    storage: 1Gi
+
+config:
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  DB_HOST: postgres
+  DB_PORT: "5432"
+  DB_NAME: votes
+  VOTE_API_URL: http://vote:31000
+  RESULTS_API_URL: http://result:31001
+
+secret:
+  DB_USER: bXl1c2Vy
+  DB_PASSWORD: bXlwYXNzd29yZA==
+
+service:
+  vote:
+    nodePort: 31000
+  result:
+    nodePort: 31001

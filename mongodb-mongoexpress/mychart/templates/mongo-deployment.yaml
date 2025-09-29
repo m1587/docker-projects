@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  namespace: mongo
+spec:
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: "{{.Values.mongo.image.repository}}:{{.Values.mongo.image.tag}}"
+        ports:
+        - containerPort: {{.Values.mongo.containerPort}}
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: {{.Values.secret.name}}
+              key: mongo-root-username
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{.Values.secret.name}}
+              key: mongo-root-password
+
+

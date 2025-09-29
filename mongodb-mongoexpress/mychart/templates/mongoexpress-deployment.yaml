@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express
+  namespace: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+        - name: mongo-express
+          image: "{{.Values.mongoExpress.image.repository}}:{{.Values.mongoExpress.image.tag}}"
+          ports:
+            - containerPort: {{.Values.mongoExpress.containerPort}}
+          # env:
+          #   - name: MONGO_INTDB_ROOT_USERNAME
+          #     valueFrom:
+          #     secretKeyRef:
+          #       name: mongodb-secret
+          #       key: mongoexpress-root-username
+          #     secretValueRef:
+          #       name: mongodb-secret
+          #       key: mongoexpress-root-password

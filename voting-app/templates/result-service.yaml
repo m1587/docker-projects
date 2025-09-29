@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: result-service
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: result
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: {{ .Values.service.result.nodePort }}
+  type: NodePort

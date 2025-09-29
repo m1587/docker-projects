@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: voting-app-config
+  namespace: {{ .Values.namespace }}
+data:
+  REDIS_HOST: {{ .Values.config.REDIS_HOST }}
+  REDIS_PORT: {{ .Values.config.REDIS_PORT | quote }}
+  DB_HOST: {{ .Values.config.DB_HOST }}
+  DB_PORT: {{ .Values.config.DB_PORT | quote }}
+  DB_NAME: {{ .Values.config.DB_NAME }}
+  VOTE_API_URL: {{ .Values.config.VOTE_API_URL }}
+  RESULTS_API_URL: {{ .Values.config.RESULTS_API_URL }}

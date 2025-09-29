@@ -1,0 +1,29 @@
+namespace: mongo
+
+mongo:
+  image:
+    repository: mongo
+    tag: "4.4.6"
+  containerPort: 27017
+  service:
+    type: LoadBalancer
+    port: 27017
+  auth:
+    rootUsername: bGVhCg==
+    rootPassword: ZHZvcmkK
+
+mongoExpress:
+  image:
+    repository: mongo-express
+    tag: "latest"
+  containerPort: 8081
+  service:
+    type: LoadBalancer
+    port: 8081
+  env:
+    mongoHost: mongodb
+    mongoPort: 27017
+
+secret:
+  name: mongodb-secret
+
